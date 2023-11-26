@@ -101,7 +101,7 @@ def processar_tarefa():
         ingredientes_receita = request.form.get('ingredientes_receita')
 
         # Caminho para o arquivo CSV
-        cadastro_tarefa = 'bd_glossaro.csv'
+        cadastro_tarefa = 'bd_glossario.csv'
 
         # Verifica se o arquivo já existe
         arquivo_existe = os.path.exists(cadastro_tarefa)
@@ -113,36 +113,34 @@ def processar_tarefa():
 
             # Se o arquivo não existir, escreve o cabeçalho
             if not arquivo_existe:
-                csv_writer.writerow(['titulo_receita', 'ingredientes_receita'])
+                csv_writer.writerow(['titulo_tarefa', 'variaveis_tarefa'])
 
             # Escreve os dados no arquivo CSV
             csv_writer.writerow([titulo_receita, ingredientes_receita])
 
-        return render_template('form_cadastro_receita.html', mensagem='Cadastro de receita realizado com sucesso!')
+        return render_template('form_cadastro_tarefa.html', mensagem='Cadastro de tarefa realizado com sucesso!')
 
 
-@app.route('/excluir_receita/<int:id>', methods=['POST'])
-def excluir_receita(id):
+@app.route('/excluir_tarefa/<int:id>', methods=['POST'])
+def excluir_tarefa(id):
     # Caminho para o arquivo CSV
-    cadastro_receitas_excluir = 'cadastro_receitas.csv'
+    cadastro_tarefas_excluir = 'cadastro_tarefas.csv'
 
-    # Lê todas as receitas do arquivo CSV
-    with open(cadastro_receitas_excluir, 'r', newline='') as csvfile_receitas:
-        csv_reader = csv.reader(csvfile_receitas)
+    # Lê todas as receitas do arquivo CSV tem que fazer
+    with open(cadastro_tarefas_excluir, 'r', newline='') as csvfile_tarefas:
+        csv_reader = csv.reader(csvfile_tarefas)
         receitas = list(csv_reader)
 
     # Remove a receita com o ID correspondente
-    if 0 < id <= len(receitas):
-        del receitas[id - 1]
+    if 0 < id <= len(tarefas):
+        del tarefas[id - 1]
 
     # Escreve as receitas de volta no arquivo CSV
-    with open(cadastro_receitas_excluir, 'w', newline='') as csvfile:
+    with open(cadastro_tarefas_excluir, 'w', newline='') as csvfile:
         csv_writer_excluir = csv.writer(csvfile)
-        csv_writer_excluir.writerows(receitas)
+        csv_writer_excluir.writerows(tarefas)
 
-    return redirect(url_for('listar_receitas'))
-
-
+    return redirect(url_for('listar_tarefas'))
 
 
 
