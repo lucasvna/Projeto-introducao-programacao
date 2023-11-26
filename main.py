@@ -89,7 +89,7 @@ def excluir_termo(termo_id):
 #             break
 
 @app.route('/tarefa.html')
-def form_cadastro_receita():
+def form_cadastro_tarefa():
     return render_template('/tarefa.html')
 
 
@@ -97,8 +97,8 @@ def form_cadastro_receita():
 def processar_tarefa():
     if request.method == 'POST':
         # Obtém os dados do formulário
-        titulo_receita = request.form.get('titulo_receita')
-        ingredientes_receita = request.form.get('ingredientes_receita')
+        titulo_tarefa = request.form.get('titulo_tarefa')
+        palavras_tarefa= request.form.get('palavras_tarefa')
 
         # Caminho para o arquivo CSV
         cadastro_tarefa = 'bd_glossario.csv'
