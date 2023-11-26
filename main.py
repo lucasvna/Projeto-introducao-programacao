@@ -89,7 +89,7 @@ def excluir_termo(termo_id):
 #             break
 
 @app.route('/tarefa.html')
-def form_cadastro_receita():
+def form_cadastro_tarefa():
     return render_template('/tarefa.html')
 
 
