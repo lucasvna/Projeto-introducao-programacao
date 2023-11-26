@@ -2,7 +2,8 @@ import os
 import csv
 from flask import Flask, render_template, redirect, url_for, request
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+todos = []
 
 # Definindo a variável de ambiente
 os.environ['FLASK_DEBUG'] = 'True'
@@ -11,8 +12,8 @@ os.environ['FLASK_DEBUG'] = 'True'
 app.debug = os.environ.get('FLASK_DEBUG') == 'True'
 
 @app.route('/')
-def ola():
-    return render_template('index.html')
+def index():
+    return render_template('index.html', todos=todos)
 
 
 @app.route('/sobre')
@@ -88,61 +89,31 @@ def excluir_termo(termo_id):
 #             del linhas[i]
 #             break
 
-@app.route('/tarefa.html')
-def form_cadastro_tarefa():
-    return render_template('/tarefa.html')
 
+@app.route('/add', methods=['POST'])
+def add():
+    todo = request.form['todo']
+    todos.append({'task': todo, 'done': False})
+    return redirect(url_for('index'))
 
-@app.route('/processar_tarefa', methods=['POST'])
-def processar_tarefa():
+@app.route('/edit/<int:index>', methods=['GET', 'POST'])
+def edit(index):
+    todo = todos[index]
     if request.method == 'POST':
-        # Obtém os dados do formulário
-        titulo_tarefa = request.form.get('titulo_tarefa')
-        palavras_tarefa= request.form.get('palavras_tarefa')
+        todo['task'] = request.form['todo']
+        return redirect(url_for('index'))
+    else:
+        return render_template('edit.html', todo=todo, index=index)
 
-        # Caminho para o arquivo CSV
-        cadastro_tarefa = 'bd_glossario.csv'
+@app.route('/check/<int:index>')
+def check(index):
+    todos[index]['done'] = not todos[index]['done']
+    return redirect(url_for('index'))
 
-        # Verifica se o arquivo já existe
-        arquivo_existe = os.path.exists(cadastro_tarefa)
+@app.route('/delete/<int:index>')
+def delete(index):
+    del todos[index]
+    return redirect(url_for('index'))
 
-        # Abre o arquivo CSV em modo de escrita
-        with open(cadastro_tarefa, 'a', newline='') as csvfile:
-            # Cria um objeto de gravação CSV
-            csv_writer = csv.writer(csvfile)
-
-            # Se o arquivo não existir, escreve o cabeçalho
-            if not arquivo_existe:
-                csv_writer.writerow(['titulo_tarefa', 'variaveis_tarefa'])
-
-            # Escreve os dados no arquivo CSV
-            csv_writer.writerow([titulo_receita, ingredientes_receita])
-
-        return render_template('form_cadastro_tarefa.html', mensagem='Cadastro de tarefa realizado com sucesso!')
-
-
-@app.route('/excluir_tarefa/<int:id>', methods=['POST'])
-def excluir_tarefa(id):
-    # Caminho para o arquivo CSV
-    cadastro_tarefas_excluir = 'cadastro_tarefas.csv'
-
-    # Lê todas as receitas do arquivo CSV tem que fazer
-    with open(cadastro_tarefas_excluir, 'r', newline='') as csvfile_tarefas:
-        csv_reader = csv.reader(csvfile_tarefas)
-        receitas = list(csv_reader)
-
-    # Remove a receita com o ID correspondente
-    if 0 < id <= len(tarefas):
-        del tarefas[id - 1]
-
-    # Escreve as receitas de volta no arquivo CSV
-    with open(cadastro_tarefas_excluir, 'w', newline='') as csvfile:
-        csv_writer_excluir = csv.writer(csvfile)
-        csv_writer_excluir.writerows(tarefas)
-
-    return redirect(url_for('listar_tarefas'))
-
-
-
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
