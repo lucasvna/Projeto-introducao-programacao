@@ -1,3 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>TESTE</h1>
+    <form action="{{ url_for('criar_nota') }}" method="post">
+
+        <label for="nota">teste:</label>
+        <input type="text" id="nota" name="nota" required>
+        <label for="descricao">TESTE2:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+
+        <button type="submit">adicionar termo</button>
+    </form>
+
+
+</body>
+</html>
+
 {% extends "modelo.html" %}
 {% block conteudo %}
       <h1>Olá, mundo!</h1>
