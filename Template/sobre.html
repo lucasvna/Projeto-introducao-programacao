@@ -1,0 +1,51 @@
+{% extends "modelo.html" %}
+{% block conteudo %}
+    <h1 class="texto">Devs do projeto</h1>
+    <section id="conteudo">
+
+        <div class="sobreDevs">
+            <img src="{{ url_for('static', filename='assets/nicollas.png') }}" alt="Nicollas">
+            <div class="texto">
+                <h2>Nicollas Garibaldi</h2>
+                <p> Scrum Master</p>
+                <p><a href="https://www.linkedin.com/in/nicollasgaribaldi/" target="_blank">Linkedin: Nicollas </a><br>
+                    <a href="https://github.com/nicollasgaribaldi" target="_blank">GitHub | Nicollas</a></p>
+                    
+            </div>
+        </div>
+    
+        <div class="sobreDevs">
+            <img src="{{ url_for('static', filename='assets/lucas.png') }}" alt="Lucas">
+            <div class="texto">
+                <h2>Lucas Viana</h2>
+                <p>Dev Git</p>
+                <p><a href="https://www.linkedin.com/in/lucas-viana-04612522b/" target="_blank">Linkedin: @lucasvnaa </a><br>
+                    <a href="https://github.com/lucasvna" target="_blank">GitHub</a></p>
+                    
+            </div>
+        </div>
+
+        <div class="sobreDevs">
+            <img src="{{ url_for('static', filename='assets/joao.jpg') }}" alt="Joao Gabriel">
+            <div class="texto">
+                <h2>João Gabriel</h2>
+                <p>Dev Back end</p>
+                <p><a href="https://www.linkedin.com/in/jo%C3%A3o-gabriel-oliveira-magalh%C3%A3es-3906b3289/" target="_blank">Linkedin: Joao Magalhaes </a><br>
+                    <a href="https://github.com/JoaoMagalhaes-hub/" target="_blank">GitHub</a></p>
+                    
+            </div>
+        </div>
+
+        <div class="sobreDevs">
+            <img src="{{ url_for('static', filename='assets/gabrielB.png') }}" alt="Gabriel Brandao">
+            <div class="texto">
+                <h2>Gabriel Brandão</h2>
+                <p>Dev Front end</p>
+                <p><a href="https://www.linkedin.com/in/gabriel-brand%C3%A3o-0518aa213/" target="_blank">Linkedin: Gabriel Brandao </a><br>
+                    <a href="https://github.com/GabrielbrandaoRP" target="_blank">GitHub</a></p>
+                    
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "modelo.html" %}
+{% block conteudo %}
+  <div class="listaTarefas">
+    <h1>Lista de tarefas</h1>
+
+    <ul>
+      {% for todo in todos %}
+      <li>
+        <input type="checkbox" name="done" maxlength="20" {% if todo['done'] %}checked{% endif %} onchange="this.form.submit()">
+        <span {% if todo['done'] %}style="text-decoration: line-through"{% endif %}>{{ todo['task'] }}</span>
+        <button class="botao-edit"><a href="{{ url_for('edit', index=loop.index0) }}">Edit</a></button>
+        <button class="botao-del"><a href="{{ url_for('delete', index=loop.index0) }}">Delete</a></button>
+      </li>
+      {% endfor %}
+    </ul>
+    <form action="{{ url_for('add') }}" method="post">
+      <input type="text" name="todo">
+      <button type="submit" class="botao-adicionar">Add</button>
+    </form>
+  </div>
+<button></button>
+{% endblock %}
