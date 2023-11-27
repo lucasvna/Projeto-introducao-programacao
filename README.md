@@ -1,5 +1,4 @@
-
-Aqui está o repositório do nosso projeto da matéria de Introdução a programação 
+# Projeto lista de tarefas e glossário
 * Professor:
   - Messias Batista.
 * Integrantes:
